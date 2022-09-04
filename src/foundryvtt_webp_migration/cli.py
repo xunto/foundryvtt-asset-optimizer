@@ -5,9 +5,8 @@ import click as click
 
 from .db import filter_db_files, migrate_databases
 from .files import get_file_paths
-from .urls import convert_path_map_to_url_map
-
 from .image import convert_images, filter_image_files
+from .urls import convert_path_map_to_url_map
 
 
 def _configure_logging():
