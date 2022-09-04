@@ -2,7 +2,9 @@ from pathlib import Path
 from typing import Dict
 
 
-def convert_path_map_to_url_map(root_path: Path, path_map: Dict[Path, Path]) -> Dict[str, str]:
+def convert_path_map_to_url_map(
+    root_path: Path, path_map: Dict[Path, Path]
+) -> Dict[str, str]:
     url_map = {}
 
     for key, value in path_map.items():

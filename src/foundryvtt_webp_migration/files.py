@@ -1,6 +1,5 @@
-import os
 from pathlib import Path
-from typing import Iterator, List, Set
+from typing import Set
 
 
 def get_file_paths(

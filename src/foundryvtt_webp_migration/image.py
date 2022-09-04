@@ -1,11 +1,8 @@
 import logging
 from pathlib import Path
-from typing import Iterable, Iterator, Set, Dict
+from typing import Dict, Iterable, Set
 
 from PIL import Image
-
-from .files import get_file_paths
-
 
 logger = logging.getLogger(__name__)
 

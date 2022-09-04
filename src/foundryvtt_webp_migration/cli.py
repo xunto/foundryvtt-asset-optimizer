@@ -6,8 +6,7 @@ import click as click
 from foundryvtt_webp_migration.db import filter_db_files, migrate_databases
 from foundryvtt_webp_migration.files import get_file_paths
 from foundryvtt_webp_migration.urls import convert_path_map_to_url_map
-
-from .image import filter_image_files, convert_images
+from .image import convert_images, filter_image_files
 
 
 def _configure_logging():
