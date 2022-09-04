@@ -1,3 +1,4 @@
+import json
 import logging
 from pathlib import Path
 from typing import Dict, Iterable, Set
@@ -29,17 +30,35 @@ def migrate_database(
     logger.info(f"Updating database {db_file}")
 
     with db_file.open() as f:
-        data = f.read()
+        db = f.read()
 
+    lines = []
+    for line in db.split("\n"):
+        if not line:
+            lines.append(line)
+            continue
+
+        data = json.loads(line)
+        _replace_links_in_dict(data, url_map)
+        lines.append(json.dumps(data))
+
+    with db_file.with_suffix(".new").open("w") as f:
+        f.write("\n".join(lines))
+
+
+def _replace_links_in_dict(
+    data: Dict,
+    url_map: Dict[str, str],
+):
     for needle, replace in url_map.items():
-        data = data.replace(
-            f'"{needle}"',
-            f'"{replace}"',
-        )
-        data = data.replace(
-            f'"{parse.quote(needle)}"',
-            f'"{parse.quote(replace)}"',
-        )
+        _replace_value_in_dict(data, needle, replace)
+        _replace_value_in_dict(data, parse.quote(needle), parse.quote(replace))
 
-    with db_file.open("w") as f:
-        f.write(data)
+
+def _replace_value_in_dict(data: Dict, needle: str, replace_with: str) -> None:
+    for k, v in data.items():
+        if v == needle:
+            data[k] = needle
+
+        if isinstance(v, Dict):
+            _replace_value_in_dict(v, needle, replace_with)

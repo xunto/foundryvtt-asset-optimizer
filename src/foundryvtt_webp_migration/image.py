@@ -4,6 +4,7 @@ from typing import Dict, Iterable, Set
 
 from PIL import Image
 
+
 logger = logging.getLogger(__name__)
 
 _UNCONVERTED_IMAGE_EXTENSIONS = (".avif", ".jpg", ".jpeg", ".png")
