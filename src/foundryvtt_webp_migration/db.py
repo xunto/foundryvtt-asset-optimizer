@@ -41,6 +41,8 @@ def migrate_database(
                 _replace_links_in_dict(data, url_map)
                 f.write(json.dumps(data))
 
+            f.write("\n")
+
 
 def _replace_links_in_dict(
     data: Dict,
