@@ -32,7 +32,7 @@ def migrate_database(
     with db_file.open() as f:
         db = f.read()
 
-    with db_file.with_suffix(".new").open("w") as f:
+    with db_file.open("w") as f:
         for line in db.split("\n"):
             if not line:
                 f.write(line)
