@@ -32,18 +32,14 @@ def migrate_database(
     with db_file.open() as f:
         db = f.read()
 
-    lines = []
-    for line in db.split("\n"):
-        if not line:
-            lines.append(line)
-            continue
-
-        data = json.loads(line)
-        _replace_links_in_dict(data, url_map)
-        lines.append(json.dumps(data))
-
     with db_file.with_suffix(".new").open("w") as f:
-        f.write("\n".join(lines))
+        for line in db.split("\n"):
+            if not line:
+                f.write(line)
+            else:
+                data = json.loads(line)
+                _replace_links_in_dict(data, url_map)
+                f.write(json.dumps(data))
 
 
 def _replace_links_in_dict(
@@ -57,8 +53,8 @@ def _replace_links_in_dict(
 
 def _replace_value_in_dict(data: Dict, needle: str, replace_with: str) -> None:
     for k, v in data.items():
-        if v == needle:
-            data[k] = needle
+        if isinstance(v, str):
+            data[k] = v.replace(needle, replace_with)
 
         if isinstance(v, Dict):
             _replace_value_in_dict(v, needle, replace_with)
