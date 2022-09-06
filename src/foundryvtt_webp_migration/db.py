@@ -52,9 +52,9 @@ def _replace_links_in_dict(
 
 
 def _replace_value_in_dict(data: Dict, needle: str, replace_with: str) -> None:
-    for k, v in data.items():
-        if isinstance(v, str):
-            data[k] = v.replace(needle, replace_with)
+    for key, value in data.items():
+        if isinstance(value, str):
+            data[key] = value.replace(needle, replace_with)
 
-        if isinstance(v, Dict):
-            _replace_value_in_dict(v, needle, replace_with)
+        if isinstance(value, Dict):
+            _replace_value_in_dict(value, needle, replace_with)
