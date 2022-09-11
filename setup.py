@@ -10,7 +10,7 @@ SRC_DIR_NAME = "src"
 
 def load_about() -> Dict[str, Any]:
     module_path = (
-        PROJECT_DIR / SRC_DIR_NAME / "foundryvtt_webp_migration" / "__about__.py"
+        PROJECT_DIR / SRC_DIR_NAME / "foundryvtt_asset_optimizer" / "__about__.py"
     )
     module_globals: Dict[str, Any] = {}
     exec(module_path.read_text("utf-8"), module_globals)
@@ -26,14 +26,14 @@ ABOUT = load_about()
 
 if __name__ == "__main__":
     setup(
-        name="foundryvtt_webp_migration",
+        name="foundryvtt_asset_optimizer",
         version=ABOUT["__version__"],
         packages=find_namespace_packages(SRC_DIR_NAME),
         package_dir={"": SRC_DIR_NAME},
         python_requires="~=3.8",
         entry_points={
             "console_scripts": [
-                "foundryvtt-webp-migration=foundryvtt_webp_migration.cli:main",
+                "foundryvtt-asset-optimizer=foundryvtt_asset_optimizer.cli:main",
             ],
         },
         install_requires=[
